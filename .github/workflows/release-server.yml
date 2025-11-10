@@ -65,7 +65,13 @@ jobs:
         if: ${{ inputs.deploy_maven }}
         run: |
           echo "deploy to maven" && mvn clean deploy -Papache-release,stage -DskipTests -e || exit 
-        
+
+      - name: Install Subversion (svn)
+        if: ${{ inputs.deploy_svn }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y subversion
+
       - name: Release to svn
         if: ${{ inputs.deploy_svn }}
         run: hugegraph-commons/hugegraph-dist/scripts/apache-release.sh ${{ inputs.release_version }} ${{ secrets.RELEASE_USERNAME }} ${{ secrets.RELEASE_PASSWORD }}
