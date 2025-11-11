@@ -55,6 +55,11 @@ jobs:
 #        if: ${{ !inputs.deploy_pip }} # TODO: replace with pip settings
 #        run: |
 #          xxx
+      - name: Install Subversion (svn)
+        if: ${{ inputs.deploy_svn }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y subversion
 
       - name: Release to svn
         if: ${{ inputs.deploy_svn }}
